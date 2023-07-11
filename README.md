@@ -1,3 +1,11 @@
+# Firebase Firestore doc
+
+https://cloud.google.com/firestore/docs/#docs
+
+# Firebase vs. Firestore:
+
+What are the differences? https://blog.back4app.com/firebase-vs-firestore/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
