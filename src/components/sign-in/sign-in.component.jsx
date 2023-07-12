@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   userSignInWithEmailAndPassword,
   signInWithGooglePopup,
@@ -6,6 +6,7 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component.jsx";
 import Button from "../button/button.component";
+// import { UserContext } from "../../contexts/contex";
 import "../button/button.styles.scss";
 
 const defaultFormFields = {
@@ -16,13 +17,16 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
+  // const { setCurrUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await userSignInWithEmailAndPassword(email, password);
-      console.log("SignInForm response:", response);
+      const { user } = await userSignInWithEmailAndPassword(email, password);
+      console.log("SignInForm user:", user);
+      //
+      // setCurrUser(user);
       setFormFields(defaultFormFields);
     } catch (err) {
       console.log("ERROR CATCH:", err);
@@ -37,13 +41,8 @@ const SignInForm = () => {
 
   //
   const signInWithGoogle = async () => {
-    const response = await signInWithGooglePopup();
-    console.log("signInWithGoogle_RESPONSE signInWithGooglePopup:", response);
-    const userDocRef = await createUserDocFromAuth(response.user);
-    console.log(
-      "signInWithGoogle_RESPONSE.signInWithGooglePopup / userDocRef:",
-      userDocRef
-    );
+    await signInWithGooglePopup();
+    // createUserDocFromAuth(user);
   };
 
   return (
@@ -63,7 +62,7 @@ const SignInForm = () => {
           label="Password"
           type="password"
           name="password"
-          value={email}
+          value={password}
           required
           onChange={handleChange}
         />
