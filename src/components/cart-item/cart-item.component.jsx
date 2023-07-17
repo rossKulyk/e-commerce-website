@@ -1,7 +1,6 @@
 import "./cart-item.styles.scss";
 
 const CartItem = ({ item }) => {
-  console.log("CartItem_item:", item);
   const { name, quantity, imageUrl, price } = item;
 
   return (
