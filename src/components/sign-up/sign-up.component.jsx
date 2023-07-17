@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   createAuthUserWithEmailPassword,
   createUserDocFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component.jsx";
 import Button from "../button/button.component";
+// import { UserContext } from "../../contexts/contex";
 import "../button/button.styles.scss";
 import "./sign-up.styles.scss";
 
@@ -18,6 +19,7 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
+  // const { setCurrUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,6 +32,7 @@ const SignInForm = () => {
     try {
       const { user } = await createAuthUserWithEmailPassword(email, password);
       // console.log("response.user", user);
+      // setCurrUser(user);
       await createUserDocFromAuth(user, { displayName });
       setFormFields(defaultFormFields);
     } catch (err) {
