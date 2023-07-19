@@ -37,28 +37,29 @@ export const UserProvider = ({ children }) => {
 };
 
 // ---------------------------------------------------
-export const ProductsContext = createContext({
-  products: [],
-  // setProducts: () => null,
+export const CategoriesContext = createContext({
+  // products: [],
+  categoriesMap: {},
 });
 
-export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState([]);
-  
+export const CategoriesProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
+
   useEffect(() => {
     const getCategoriesMap = async () => {
       const categoryMap = await getCategoriesAndDocs();
-      console.log("CONTEXT_ProductsProvider categoryMap:", categoryMap);
+      console.log("CONTEXT_CategoriesProvider categoryMap:", categoryMap);
+      setCategoriesMap(categoryMap);
     };
     getCategoriesMap();
   }, []);
 
-  const value = { products };
+  const value = { categoriesMap };
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
 
