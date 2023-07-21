@@ -1,10 +1,11 @@
 import { createContext, useState, useEffect } from "react";
 import {
   onAuthStateChangedListener,
-  signOutUser,
   createUserDocFromAuth,
+  addCollectionAndDocs,
+  getCategoriesAndDocs,
 } from "../utils/firebase/firebase.utils";
-import PRODUCTS from "../data.json";
+import SHOP_DATA from "../data";
 
 // default value to be accessed
 export const UserContext = createContext({
@@ -15,18 +16,20 @@ export const UserContext = createContext({
 export const UserProvider = ({ children }) => {
   const [currUser, setCurrUser] = useState(null);
   const value = { currUser, setCurrUser };
-  // signOutUser();
+
+  // run once to fill the db with data
+  // useEffect(() => {
+  //   addCollectionAndDocs("categories", SHOP_DATA);
+  // });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChangedListener((user) => {
       if (user) {
         createUserDocFromAuth(user);
       }
-      // console.log(">>>>>>>> UserProvider USER:", user, ", value:", value);
       setCurrUser(user);
     });
     return () => unsubscribe();
-    // return unsubscribe();
   }, []);
 
   // component that wrap around other components that need access to values
@@ -34,19 +37,29 @@ export const UserProvider = ({ children }) => {
 };
 
 // ---------------------------------------------------
-export const ProductsContext = createContext({
-  products: [],
-  // setProducts: () => null,
+export const CategoriesContext = createContext({
+  // products: [],
+  categoriesMap: {},
 });
 
-export const ProductsProvider = ({ children }) => {
-  const [products, setProducts] = useState(PRODUCTS);
-  const value = { products };
+export const CategoriesProvider = ({ children }) => {
+  const [categoriesMap, setCategoriesMap] = useState({});
+
+  useEffect(() => {
+    const getCategoriesMap = async () => {
+      const categoryMap = await getCategoriesAndDocs();
+      console.log("CONTEXT_CategoriesProvider categoryMap:", categoryMap);
+      setCategoriesMap(categoryMap);
+    };
+    getCategoriesMap();
+  }, []);
+
+  const value = { categoriesMap };
 
   return (
-    <ProductsContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </ProductsContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
 
