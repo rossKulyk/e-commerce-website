@@ -8,14 +8,14 @@ const Category = () => {
   const { category } = useParams();
   const { categoriesMap } = useContext(CategoriesContext);
   const [products, setProducts] = useState(categoriesMap[category]);
-  console.log("category:", category);
-  console.log(
-    "categoriesMap:",
-    categoriesMap,
-    ". categoriesMap[category]:",
-    categoriesMap[category]
-  );
-  console.log("products:", products);
+  // console.log("category:", category);
+  // console.log(
+  //   "categoriesMap:",
+  //   categoriesMap,
+  //   ". categoriesMap[category]:",
+  //   categoriesMap[category]
+  // );
+  // console.log("products:", products);
 
   useEffect(() => {
     setProducts(categoriesMap[category]);
