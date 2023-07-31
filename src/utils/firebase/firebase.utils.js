@@ -57,16 +57,16 @@ export const db = getFirestore();
 //
 export const addCollectionAndDocs = async (collectionKey, objToAdd) => {
   const collectionRef = collection(db, collectionKey);
-  console.log("addCollectionAndDocs_ collectionRef:", collectionRef);
+  // console.log("addCollectionAndDocs_ collectionRef:", collectionRef);
   const batch = writeBatch(db);
-  console.log("addCollectionAndDocs_ batch:", batch);
+  // console.log("addCollectionAndDocs_ batch:", batch);
   //
   objToAdd.forEach((obj) => {
     const docRef = doc(collectionRef, obj.title.toLowerCase());
     batch.set(docRef, obj);
   });
   await batch.commit();
-  console.log(" addCollectionAndDocs_ DONE ");
+  // console.log(" addCollectionAndDocs_ DONE ");
 };
 
 // retrieve data
