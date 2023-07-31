@@ -5,9 +5,9 @@ import {
   createUserDocFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component.jsx";
-import Button from "../button/button.component";
+import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 // import { UserContext } from "../../contexts/contex";
-import "../button/button.styles.scss";
+import "../button/button.styles.jsx";
 
 const defaultFormFields = {
   email: "",
@@ -70,7 +70,11 @@ const SignInForm = () => {
           <Button type="submit" onClick={handleSubmit}>
             Sign In
           </Button>
-          <Button type="button" buttonType="google" onClick={signInWithGoogle}>
+          <Button
+            type="button"
+            buttonType={BUTTON_TYPE_CLASSES.google}
+            onClick={signInWithGoogle}
+          >
             Sign-in with Google
           </Button>
         </div>

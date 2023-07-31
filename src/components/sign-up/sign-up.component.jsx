@@ -6,7 +6,7 @@ import {
 import FormInput from "../form-input/form-input.component.jsx";
 import Button from "../button/button.component";
 // import { UserContext } from "../../contexts/contex";
-import "../button/button.styles.scss";
+import "../button/button.styles.jsx";
 import "./sign-up.styles.scss";
 
 const defaultFormFields = {
