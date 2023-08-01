@@ -1,40 +1,5 @@
-import { createContext, useState, useEffect } from "react";
-import {
-  onAuthStateChangedListener,
-  createUserDocFromAuth,
-  addCollectionAndDocs,
-  getCategoriesAndDocs,
-} from "../utils/firebase/firebase.utils";
-import SHOP_DATA from "../data";
-
-// default value to be accessed
-export const UserContext = createContext({
-  currUser: null,
-  setCurrUser: () => null,
-});
-//
-export const UserProvider = ({ children }) => {
-  const [currUser, setCurrUser] = useState(null);
-  const value = { currUser, setCurrUser };
-
-  // run once to fill the db with data
-  // useEffect(() => {
-  //   addCollectionAndDocs("categories", SHOP_DATA);
-  // });
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocFromAuth(user);
-      }
-      setCurrUser(user);
-    });
-    return () => unsubscribe();
-  }, []);
-
-  // component that wrap around other components that need access to values
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
-};
+import { createContext, useState, useReducer, useEffect } from "react";
+import { getCategoriesAndDocs } from "../utils/firebase/firebase.utils";
 
 // ---------------------------------------------------
 export const CategoriesContext = createContext({

@@ -5,7 +5,6 @@ import {
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component.jsx";
 import Button from "../button/button.component";
-// import { UserContext } from "../../contexts/contex";
 import "../button/button.styles.jsx";
 import "./sign-up.styles.scss";
 
@@ -19,7 +18,6 @@ const defaultFormFields = {
 const SignInForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { displayName, email, password, confirmPassword } = formFields;
-  // const { setCurrUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
