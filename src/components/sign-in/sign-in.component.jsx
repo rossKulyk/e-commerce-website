@@ -23,8 +23,7 @@ const SignInForm = () => {
     try {
       const { user } = await userSignInWithEmailAndPassword(email, password);
       // console.log("SignInForm user:", user);
-      //
-      // setCurrUser(user);
+
       setFormFields(defaultFormFields);
     } catch (err) {
       console.log("ERROR CATCH:", err);

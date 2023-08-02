@@ -29,8 +29,6 @@ const SignInForm = () => {
 
     try {
       const { user } = await createAuthUserWithEmailPassword(email, password);
-      // console.log("response.user", user);
-      // setCurrUser(user);
       await createUserDocFromAuth(user, { displayName });
       setFormFields(defaultFormFields);
     } catch (err) {
