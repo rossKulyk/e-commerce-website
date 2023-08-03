@@ -1,10 +1,13 @@
 import { Fragment } from "react";
 import { useSelector } from "react-redux";
+import { selectCategoriesMap } from "../../store/categories/category.selector.js";
 import CategoryPreview from "../../components/category-preview/category-preview.component";
 
 const CategoriesPreview = () => {
-  const categoriesMap = useSelector((state) => state.categories.categoriesMap);
-  // console.log("CategoriesPreview categoriesMap:", categoriesMap);
+  // console.log(" CategoriesPreview FINAL categoriesMap:", categoriesMap);
+  const categoriesMap = useSelector(selectCategoriesMap);
+  // const categoriesMap = useSelector((state) => state.categories.categories);
+  console.log("CategoriesPreview categoriesMap:", categoriesMap);
 
   return (
     <Fragment>
