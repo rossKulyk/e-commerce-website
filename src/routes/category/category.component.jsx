@@ -7,11 +7,7 @@ import "./category.styles.scss";
 
 const Category = () => {
   const { category } = useParams();
-  const categoriesMap = useSelector(selectCategoriesMap);
-
-  // const categoriesMap = useSelector((state) => state.categories.categories);
-  console.log("Category categoriesMap:", categoriesMap);
-
+  const categoriesMap = useSelector(selectCategoriesMap); // transforms category array into obj
   const [products, setProducts] = useState(categoriesMap[category]);
 
   useEffect(() => {
