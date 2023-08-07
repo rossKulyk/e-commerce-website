@@ -1,6 +1,8 @@
 import { createSelector } from "reselect"; // generates memoized selector functions
 
-const selectCategoryReducer = (state) => state.categories;
+const selectCategoryReducer = (state) => {
+  return state.categories;
+};
 
 // re-runs only if state.categories have changed
 export const selectCategories = createSelector(
@@ -22,10 +24,10 @@ export const selectCategoriesMap = createSelector(
     }, {});
   }
 );
-// export const selectCategoriesMap = (state) => {
-//   return state.categories.categories.reduce((acc, category) => {
-//     const { title, items } = category;
-//     acc[title.toLowerCase()] = items;
-//     return acc;
-//   }, {});
-// };
+
+export const selectCategoriesIsLoading = createSelector(
+  [selectCategoryReducer],
+  (categories) => {
+    return categories.isLoading;
+  }
+);
