@@ -57,16 +57,15 @@ export const db = getFirestore();
 //
 export const addCollectionAndDocs = async (collectionKey, objToAdd) => {
   const collectionRef = collection(db, collectionKey);
-  // console.log("addCollectionAndDocs_ collectionRef:", collectionRef);
+  console.log("addCollectionAndDocs_ collectionRef:", collectionRef);
   const batch = writeBatch(db);
-  // console.log("addCollectionAndDocs_ batch:", batch);
+  console.log("addCollectionAndDocs_ batch:", batch);
   //
   objToAdd.forEach((obj) => {
     const docRef = doc(collectionRef, obj.title.toLowerCase());
     batch.set(docRef, obj);
   });
   await batch.commit();
-  // console.log(" addCollectionAndDocs_ DONE ");
 };
 
 // retrieve data
@@ -75,16 +74,18 @@ export const getCategoriesAndDocs = async () => {
   const queryObj = query(collectionRef);
   // console.log("getCategoriesAndDocs queryObj:", queryObj);
   const querySnapshot = await getDocs(queryObj);
-  // console.log("getCategoriesAndDocs querySnapshot:", querySnapshot);
-  const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-    const { title, items } = docSnapshot.data();
-    acc[title.toLowerCase()] = items;
-    return acc;
-  }, {});
-  // console.log("getCategoriesAndDocs categoryMap:", categoryMap);
 
-  //
-  return categoryMap;
+  return querySnapshot.docs.map((docSnapshot) => {
+    // console.log(">> querySnapshot.docs.map docSnapshot: ", docSnapshot);
+    // console.log(" >>> docSnapshot.DATA()", docSnapshot.data());
+    return docSnapshot.data();
+  });
+  // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
+  //   const { title, items } = docSnapshot.data();
+  //   acc[title.toLowerCase()] = items;
+  //   return acc;
+  // }, {});
+  // return categoryMap;
 };
 
 //
