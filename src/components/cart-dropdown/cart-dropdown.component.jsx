@@ -11,7 +11,6 @@ import {
 
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
-  console.log(" ==> CART_ITEMS@:", cartItems);
 
   const navigate = useNavigate();
   const gotToCheckoutPageGandler = () => {
