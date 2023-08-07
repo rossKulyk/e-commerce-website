@@ -9,11 +9,12 @@ import { rootReducer } from "./root-reducer";
 const persistConfig = {
   key: "root",
   storage,
-  balcjlist: ["user"],
+  whitelist: ["cart"], // to be persisted in the localstorage
 };
 
 // create persist reducer using persist config
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 // should be run only in dev, not production code
 const middleware = [
   process.env.NODE_ENV !== "production" && logger,
@@ -32,7 +33,6 @@ const composeEnhancer =
 // applyMiddleware intercepts actions before they reach the reducers, allows to perform tasks like
 // logging, handling asynchronous actions, or modifying actions before they update the state
 const composeEnhancers = composeEnhancer(applyMiddleware(...middleware));
-// const composeEnhancers = compose(applyMiddleware(...middleware));
 
 export const store = createStore(persistedReducer, undefined, composeEnhancers);
 //

@@ -12,6 +12,7 @@ export const categoriesReducer = (
   action = {}
 ) => {
   const { type, payload } = action;
+  // console.log("> REDUCER_CATEGORY action:", action);
 
   switch (type) {
     case CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START:
