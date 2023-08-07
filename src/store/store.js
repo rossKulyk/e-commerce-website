@@ -2,6 +2,7 @@ import { compose, createStore, applyMiddleware } from "redux";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
+import thunk from "redux-thunk";
 import { rootReducer } from "./root-reducer";
 
 //config obj to persist redux
@@ -14,7 +15,10 @@ const persistConfig = {
 // create persist reducer using persist config
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 // should be run only in dev, not production code
-const middleware = [process.env.NODE_ENV !== "production" && logger].filter(
+const middleware = [
+  process.env.NODE_ENV !== "production" && logger,
+  thunk,
+].filter(
   Boolean // filters everything that's not true
 );
 
