@@ -142,3 +142,19 @@ export const signOutUser = async () => {
 export const onAuthStateChangedListener = (callback) => {
   return onAuthStateChanged(auth, callback);
 };
+
+// check if user is authenticated
+export const getCurrUser = () => {
+  return new Promise((resolve, reject) => {
+    // unsubscribe the listener at the moment the value is recieved
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (userAuth) => {
+        //
+        unsubscribe(); // prevents memory leak
+        resolve(userAuth);
+      },
+      reject // callback if err is thrown
+    );
+  });
+};

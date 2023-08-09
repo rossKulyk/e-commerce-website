@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import {
   onAuthStateChangedListener,
   createUserDocFromAuth,
+  getCurrUser,
 } from "./utils/firebase/firebase.utils";
 import Home from "./routes/home/home.component";
 import NavigationBar from "./routes/navigation/navigation.component";
@@ -17,13 +18,14 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChangedListener((user) => {
-      if (user) {
-        createUserDocFromAuth(user);
-      }
-      dispatch(setCurrUser(user));
-    });
-    return () => unsubscribe();
+    getCurrUser().then((user) => console.log("> APP user:", user));
+    // const unsubscribe = onAuthStateChangedListener((user) => {
+    //   if (user) {
+    //     createUserDocFromAuth(user);
+    //   }
+    //   dispatch(setCurrUser(user));
+    // });
+    // return () => unsubscribe();
   }, [dispatch]);
 
   return (

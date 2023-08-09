@@ -1,4 +1,3 @@
-import { func } from "prop-types";
 import { takeLatest, all, call, put } from "redux-saga/effects";
 import { getCategoriesAndDocs } from "../../utils/firebase/firebase.utils";
 import {
