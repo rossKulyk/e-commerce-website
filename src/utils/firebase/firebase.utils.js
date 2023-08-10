@@ -33,9 +33,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
-// console.log("firebaseApp:", firebaseApp);
 const googleProvider = new GoogleAuthProvider(); // could be different providers: Facebook, etc
-// console.log("googleProvider by GoogleAuthProvider:", googleProvider);
 googleProvider.setCustomParameters({
   prompt: "select_account",
 });
@@ -52,14 +50,11 @@ export const signInWithGoogleRedirect = () =>
 
 // returns default firestore instance
 export const db = getFirestore();
-// console.log("DB:", db);
 
 //
 export const addCollectionAndDocs = async (collectionKey, objToAdd) => {
   const collectionRef = collection(db, collectionKey);
-  console.log("addCollectionAndDocs_ collectionRef:", collectionRef);
   const batch = writeBatch(db);
-  console.log("addCollectionAndDocs_ batch:", batch);
   //
   objToAdd.forEach((obj) => {
     const docRef = doc(collectionRef, obj.title.toLowerCase());
@@ -72,37 +67,24 @@ export const addCollectionAndDocs = async (collectionKey, objToAdd) => {
 export const getCategoriesAndDocs = async () => {
   const collectionRef = collection(db, "categories");
   const queryObj = query(collectionRef);
-  // console.log("getCategoriesAndDocs queryObj:", queryObj);
   const querySnapshot = await getDocs(queryObj);
 
   return querySnapshot.docs.map((docSnapshot) => {
-    // console.log(">> querySnapshot.docs.map docSnapshot: ", docSnapshot);
-    // console.log(" >>> docSnapshot.DATA()", docSnapshot.data());
     return docSnapshot.data();
   });
-  // const categoryMap = querySnapshot.docs.reduce((acc, docSnapshot) => {
-  //   const { title, items } = docSnapshot.data();
-  //   acc[title.toLowerCase()] = items;
-  //   return acc;
-  // }, {});
-  // return categoryMap;
 };
 
 //
 export const createUserDocFromAuth = async (userAuth, other = {}) => {
-  // console.log("createUserDocFromAuth userAuth:", userAuth);
   if (!userAuth) return;
   // check if existing doc reference
   const userDocRef = doc(db, "users", userAuth.uid); //user.uid -> unique user identefier
-  // console.log("createUserDocFromAuth() userDocRef:", userDocRef);
   const userSnapshot = await getDoc(userDocRef);
-  // console.log("createUserDocFromAuth() userSnapshot:", userSnapshot);
 
   if (!userSnapshot.exists()) {
     const { displayName, email } = userAuth;
-    // console.log("displayName, email, other :", displayName, email, other);
     const createdAt = new Date();
-    //
+
     try {
       await setDoc(userDocRef, {
         displayName,
