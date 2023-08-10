@@ -114,7 +114,7 @@ export const createUserDocFromAuth = async (userAuth, other = {}) => {
       console.log("ERROR CREATING THE USER:", error);
     }
   }
-  return userDocRef;
+  return userSnapshot;
 };
 
 // create a new user acc assosiated with the provided email & password

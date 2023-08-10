@@ -11,14 +11,15 @@ import NavigationBar from "./routes/navigation/navigation.component";
 import Authentication from "./routes/auth/authentication.component.jsx";
 import Checkout from "./routes/checkout/checkout.component";
 import Shop from "./routes/shop/shop.component";
-import { setCurrUser } from "./store/user/user.action";
+import { setCurrUser, checkUserSession } from "./store/user/user.action";
 import "./App.css";
 
 const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getCurrUser().then((user) => console.log("> APP user:", user));
+    dispatch(checkUserSession());
+    // getCurrUser().then((user) => console.log("> APP user:", user));
     // const unsubscribe = onAuthStateChangedListener((user) => {
     //   if (user) {
     //     createUserDocFromAuth(user);
