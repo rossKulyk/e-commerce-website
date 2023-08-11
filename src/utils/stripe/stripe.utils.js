@@ -1,5 +1,5 @@
 import { loadStripe } from "@stripe/stripe-js";
 
 export const stripePromise = loadStripe(
-  process.env.REACT_APP_STRIPE_PABLISH_KEY
+  `${process.env.REACT_APP_STRIPE_PABLISH_KEY}`
 );
