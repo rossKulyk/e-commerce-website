@@ -2,6 +2,7 @@ import {
   createAction,
   Action,
   ActionWithPayload,
+  withMatcher,
 } from "../../utils/reducer/reducer.utils";
 import { CATEGORIES_ACTION_TYPES, Category } from "./category.types";
 import { getCategoriesAndDocs } from "../../utils/firebase/firebase.utils";
@@ -24,19 +25,27 @@ export type CategoryAction =
   | FetchCategoriesFailed;
 
 // ACTION CREATORS:
-//
-export const fetchCategoriesStart = (): FetchCategoriesStart =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START);
 
-//
-export const fetchCategoriesSuccess = (
-  categoriesArr: Category[]
-): FetchCategoriesSuccess =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS, categoriesArr);
+// withMatcher function enhancement allows to perform type checking and action matching based on the action type
+export const fetchCategoriesStart = withMatcher(
+  (): FetchCategoriesStart =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START)
+);
 
-//
-export const fetchCategoriesFailed = (error: Error): FetchCategoriesFailed =>
-  createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error);
+// withMatcher function enhancement allows to perform type checking and action matching based on the action type
+export const fetchCategoriesSuccess = withMatcher(
+  (categoriesArr: Category[]): FetchCategoriesSuccess =>
+    createAction(
+      CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
+      categoriesArr
+    )
+);
+
+// withMatcher function enhancement allows to perform type checking and action matching based on the action type
+export const fetchCategoriesFailed = withMatcher(
+  (error: Error): FetchCategoriesFailed =>
+    createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
+);
 
 // async thunk
 export const fetchCategoriesAsync = () => {
