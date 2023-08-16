@@ -1,5 +1,11 @@
 import { AnyAction } from "redux";
 
+// intersection type that combines the provided function type (AC) with additional properties and a method
+type Matchable<AC extends () => AnyAction> = AC & {
+  type: ReturnType<AC>["type"];
+  match(action: AnyAction): action is ReturnType<AC>;
+};
+
 export type ActionWithPayload<T, P> = {
   type: T;
   payload: P;
