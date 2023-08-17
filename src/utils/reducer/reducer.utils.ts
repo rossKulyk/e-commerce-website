@@ -25,11 +25,12 @@ export function withMatcher(actionCreator: Function) {
   });
 }
 
+// type action
 export type ActionWithPayload<T, P> = {
   type: T;
   payload: P;
 };
-
+// type action
 export type Action<T> = {
   type: T;
 };
