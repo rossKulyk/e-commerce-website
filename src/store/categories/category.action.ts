@@ -7,12 +7,16 @@ import {
 import { CATEGORIES_ACTION_TYPES, Category } from "./category.types";
 import { getCategoriesAndDocs } from "../../utils/firebase/firebase.utils";
 
+// =>
+// => typed action
 export type FetchCategoriesStart =
   Action<CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_START>;
+// => typed action
 export type FetchCategoriesSuccess = ActionWithPayload<
   CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_SUCCESS,
   Category[]
 >;
+// => typed action
 export type FetchCategoriesFailed = ActionWithPayload<
   CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED,
   Error
@@ -24,8 +28,7 @@ export type CategoryAction =
   | FetchCategoriesSuccess
   | FetchCategoriesFailed;
 
-// ACTION CREATORS:
-
+// =>  ACTION CREATORS:
 // withMatcher function enhancement allows to perform type checking and action matching based on the action type
 export const fetchCategoriesStart = withMatcher(
   (): FetchCategoriesStart =>
