@@ -4,10 +4,10 @@ import { Category } from "../categories/category.types";
 import { setIsCartOpen, setCartItems } from "./cart.action";
 
 export type CartState = {
-  isCartOpen: boolean;
-  cartItems: CartItem[];
-  cartCount: number;
-  cartTotal: number;
+  readonly isCartOpen: boolean;
+  readonly cartItems: CartItem[];
+  readonly cartCount: number;
+  readonly cartTotal: number;
 };
 export const CART_INITIAL_STATE: CartState = {
   isCartOpen: false,
