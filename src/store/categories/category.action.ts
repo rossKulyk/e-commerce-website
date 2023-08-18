@@ -49,18 +49,3 @@ export const fetchCategoriesFailed = withMatcher(
   (error: Error): FetchCategoriesFailed =>
     createAction(CATEGORIES_ACTION_TYPES.FETCH_CATEGORIES_FAILED, error)
 );
-
-// async thunk
-export const fetchCategoriesAsync = () => {
-  return async (dispatch: any) => {
-    dispatch(fetchCategoriesStart());
-    try {
-      const categoriesArray = await getCategoriesAndDocs();
-      // console.log(" fetchCategoriesAsync categoriesArray:", categoriesArray);
-
-      dispatch(fetchCategoriesSuccess(categoriesArray));
-    } catch (error) {
-      dispatch(fetchCategoriesFailed(error));
-    }
-  };
-};
