@@ -80,8 +80,6 @@ export const getCategoriesAndDocs = async (): Promise<Category[]> => {
   const querySnapshot = await getDocs(queryObj);
 
   return querySnapshot.docs.map((docSnapshot) => {
-    // console.log(">> querySnapshot.docs.map docSnapshot: ", docSnapshot);
-    // console.log(" >>> docSnapshot.DATA()", docSnapshot.data());
     return docSnapshot.data() as Category;
   });
 };
@@ -95,6 +93,7 @@ export type UserData = {
   displayName: string;
   email: string;
 };
+
 export const createUserDocFromAuth = async (
   userAuth: User,
   other = {} as OtherInfo
