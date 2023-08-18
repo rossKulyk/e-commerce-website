@@ -1,5 +1,5 @@
-import { compose, createStore, applyMiddleware } from "redux";
-import { persistStore, persistReducer } from "redux-persist";
+import { compose, createStore, applyMiddleware, Middleware } from "redux";
+import { persistStore, persistReducer, PersistConfig } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import logger from "redux-logger";
 // import thunk from "redux-thunk";
@@ -7,8 +7,21 @@ import createSagaMiddleware from "redux-saga";
 import { rootSaga } from "./root-saga";
 import { rootReducer } from "./root-reducer";
 
+//
+export type RootState = ReturnType<typeof rootReducer>;
+//
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
+  }
+}
+
+type ExtendedPersistConfig = PersistConfig<RootState> & {
+  whitelist: (keyof RootState)[];
+};
+
 //config obj to persist redux
-const persistConfig = {
+const persistConfig: ExtendedPersistConfig = {
   key: "root",
   storage,
   whitelist: ["cart"], // to be persisted in the localstorage
@@ -18,13 +31,17 @@ const sagaMiddleware = createSagaMiddleware();
 // create persist reducer using persist config
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// should be run only in dev, not production code
-const middleware = [
+const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
   sagaMiddleware,
-].filter(
-  Boolean // filters everything that's not true
-);
+].filter((middleware): middleware is Middleware => Boolean(middleware));
+// should be run only in dev, not production code
+// const middleWares = [
+//   process.env.NODE_ENV !== "production" && logger,
+//   thunk,
+// ].filter(
+//   Boolean // filters everything that's not true
+// );
 
 // if not in production env and window obj && dev tools exist, otherwise use compose of redux
 const composeEnhancer =
@@ -35,7 +52,7 @@ const composeEnhancer =
 
 // applyMiddleware intercepts actions before they reach the reducers, allows to perform tasks like
 // logging, handling asynchronous actions, or modifying actions before they update the state
-const composeEnhancers = composeEnhancer(applyMiddleware(...middleware));
+const composeEnhancers = composeEnhancer(applyMiddleware(...middleWares));
 
 export const store = createStore(persistedReducer, undefined, composeEnhancers);
 //

@@ -3,8 +3,8 @@ import { Fragment, useContext } from "react";
 import { useSelector } from "react-redux";
 import CartIcon from "../../components/cart-icon/cart-icon.component";
 import CartDropdown from "../../components/cart-dropdown/cart-dropdown.component";
-import { selectIsCartOpen } from "../../store/cart/cart.selector.js";
-import { signOutUser } from "../../utils/firebase/firebase.utils.js";
+import { selectIsCartOpen } from "../../store/cart/cart.selector";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 import { ReactComponent as CrwnLogo } from "../../assets/crown.svg";
 import {
   NavigationContainer,
