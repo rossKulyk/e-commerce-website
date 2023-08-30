@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import FormInput from "../form-input/form-input.component.jsx";
+import FormInput from "../form-input/form-input.component";
 import Button, { BUTTON_TYPE_CLASSES } from "../button/button.component";
 import {
   googleSignInStart,
@@ -23,8 +23,6 @@ const SignInForm = () => {
 
     try {
       dispatch(emailSignInStart(email, password));
-      // await userSignInWithEmailAndPassword(email, password);
-      // console.log("SignInForm user:", user);
 
       setFormFields(defaultFormFields);
     } catch (err) {
@@ -41,8 +39,6 @@ const SignInForm = () => {
   //
   const signInWithGoogle = async () => {
     dispatch(googleSignInStart());
-    // await signInWithGooglePopup();
-    // createUserDocFromAuth(user);
   };
 
   return (

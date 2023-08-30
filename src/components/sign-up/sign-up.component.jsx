@@ -1,14 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  createAuthUserWithEmailPassword,
-  createUserDocFromAuth,
-} from "../../utils/firebase/firebase.utils";
 import { signUpStart } from "../../store/user/user.action";
-import FormInput from "../form-input/form-input.component.jsx";
+import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import "../button/button.styles";
-import "./sign-up.styles.scss";
 
 const defaultFormFields = {
   displayName: "",
@@ -32,8 +27,6 @@ const SignInForm = () => {
 
     try {
       dispatch(signUpStart(email, password, displayName));
-      // const { user } = await createAuthUserWithEmailPassword(email, password);
-      // await createUserDocFromAuth(user, { displayName });
       setFormFields(defaultFormFields);
     } catch (err) {
       console.log("ERROR CATCH:", err);
