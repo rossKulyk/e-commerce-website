@@ -8,7 +8,7 @@ import {
 } from "./utils/firebase/firebase.utils";
 import Home from "./routes/home/home.component";
 import NavigationBar from "./routes/navigation/navigation.component";
-import Authentication from "./routes/auth/authentication.component.jsx";
+import Authentication from "./routes/auth/authentication.component";
 import Checkout from "./routes/checkout/checkout.component";
 import Shop from "./routes/shop/shop.component";
 import { setCurrUser, checkUserSession } from "./store/user/user.action";
