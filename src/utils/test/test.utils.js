@@ -3,6 +3,7 @@ import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import { rootReducer } from "../../store/root-reducer";
+import { BrowserRouter } from "react-router-dom";
 
 // 1st arg=> rendered component, 2nd=> config obj(redux)
 export function renderWithProviders(
@@ -15,7 +16,11 @@ export function renderWithProviders(
   } = {} // by default, if nothing is passed
 ) {
   function Wrapper({ children }) {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </Provider>
+    );
   }
 
   // Return an object with the store and all of RTL's query functions

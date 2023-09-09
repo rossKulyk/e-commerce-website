@@ -1,5 +1,4 @@
 import { screen } from "@testing-library/dom";
-
 import { renderWithProviders } from "../../../utils/test/test.utils";
 import CartIcon from "../cart-icon.component";
 
